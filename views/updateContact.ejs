@@ -1,0 +1,42 @@
+<%- include('layouts/header') %>
+<%- include('layouts/nav') %> 
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-xs-6">
+            <h2>Update Data Contact</h2>
+
+                   <!-- menampilkan error -->
+                   <% if (typeof errors !== 'undefined') { %>
+                    <div class="alert alert-danger" role="alert">
+                        <ul>
+                            <% errors.forEach(error => { %>
+                                <li><%= error.msg %> </li>
+                            <% }) %>
+                        </ul>
+                      </div>
+                <% } %>
+
+            <form method="post" action="contact.ejs">
+                <div class="mb-3">
+                  <label class="form-label">NPM</label>
+                  <input type="number" class="form-control" id="inputNPM" name="npm" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Nama Lengkap</label>
+                  <input type="text" class="form-control" id="inputNama" name="nama">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Kelas</label>
+                    <input type="text" class="form-control" id="inputKelas" name="kelas">
+                  </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" id="inputEmail" name="email">
+                </div>
+                <button type="submit" class="btn btn-primary">Tambah Contact</button>
+            </form>
+
+        </div>
+    </div>
+</div>
