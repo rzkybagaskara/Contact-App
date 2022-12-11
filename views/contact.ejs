@@ -18,41 +18,30 @@
         <th scope="col">Aksi</th>
       </tr>
 
-      <!-- harus loop isi kontak tsb buat tambahin buttonnya -->
+      <!-- loop contact -->
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>51420127</td>
-          <td>Rizky Bagaskara</td>
-          <td>3IA01</td>
-          <td>rzkybgs11@gmail.com</td>
-          <!-- buttons -->
-          <td><a href="/updateContact" class="btn btn-success badge rounded-pill">Update</a>
-            <br>
-              <a href="" class="btn btn-danger badge rounded-pill">Delete</a>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>51430214</td>
-          <td>M Wildan Firdausi</td>
-          <td>3IA01</td>
-          <td>wildanfs@gmail.com</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>51323114</td>
-          <td>M Arsyal</td>
-          <td>3IA01</td>
-          <td>marsyal@yahoo.com</td>
-        </tr>
-        <tr>
-          <th scope="row">4</th>
-          <td>509218453</td>
-          <td>Nikolaus Georgi</td>
-          <td>3IA01</td>
-          <td>nxgeo@yahoo.com</td>
-        </tr>
+        <% if(contacts.length === 0) { %>
+            <div class="alert alert-danger" role="alert">
+              Data contact masih kosong!
+            </div>
+          <% } %> 
+          <% let nomor = 1 %>
+
+        <% contacts.forEach(contact => { %>
+          <tr>
+            <th scope="row"><%= nomor++ %> </th>
+            <td><%= contact.npm %> </td>
+            <td><%= contact.nama_lengkap %> </td>
+            <td><%= contact.kelas %> </td>
+            <td><%= contact.email %> </td>
+              <!-- buttons -->
+            <td>
+                <a href="/updateContact" class="btn btn-success badge rounded-pill">Update</a>
+                <br>
+                <a href="" class="btn btn-danger badge rounded-pill">Delete</a>
+            </td>
+          </tr>
+        <% }) %>  
       </tbody>
     </thead>
   </table>
