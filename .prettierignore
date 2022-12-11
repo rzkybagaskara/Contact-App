@@ -1,0 +1,4 @@
+#ignore sql queries inside this folder
+/controller
+/database
+/routes
