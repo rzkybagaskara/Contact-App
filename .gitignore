@@ -1,3 +1,6 @@
+#rar
+*.rar
+
 # Logs
 logs
 *.log

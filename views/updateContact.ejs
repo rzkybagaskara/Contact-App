@@ -17,24 +17,27 @@
                       </div>
                 <% } %>
 
-            <form method="post" action="contact.ejs">
+            <form action = "/updateContact/" method="post">
+                <input type="hidden" name="oldNPM" value="<%= contact.npm %>">
                 <div class="mb-3">
                   <label class="form-label">NPM</label>
-                  <input type="number" class="form-control" id="inputNPM" name="npm" required>
+                  <input type="text" class="form-control" id="inputNPM" name="npm" required value="<%= contact.npm%> " >
+                  <%= console.log(contact.npm) %> 
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Nama Lengkap</label>
-                  <input type="text" class="form-control" id="inputNama" name="nama">
+                  <input type="text" class="form-control" id="inputNama" name="nama_lengkap" value="<%= contact.nama_lengkap%> ">
+                  
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Kelas</label>
-                    <input type="text" class="form-control" id="inputKelas" name="kelas">
+                    <input type="text" class="form-control" id="inputKelas" name="kelas" value="<%= contact.kelas%> ">
                   </div>
                 <div class="mb-3">
                     <label class="form-label">Email</label>
-                    <input type="email" class="form-control" id="inputEmail" name="email">
+                    <input type="email" class="form-control" id="inputEmail" name="email" value="<%= contact.email%> ">
                 </div>
-                <button type="submit" class="btn btn-primary">Tambah Contact</button>
+                <button type="submit" class="btn btn-primary">Update Contact</button>
             </form>
 
         </div>

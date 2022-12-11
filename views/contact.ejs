@@ -3,7 +3,7 @@
 
 <div class="container mt-4">
   <div class="col-md-8">
-    <h2>Daftar Kontak Mahasiswa</h2>
+    <h2>Daftar Contact Mahasiswa</h2>
 
     <a href="/addContact" class="btn btn-primary mb-2">Tambah Data Kontak</a>
 
@@ -36,9 +36,9 @@
             <td><%= contact.email %> </td>
               <!-- buttons -->
             <td>
-                <a href="/updateContact" class="btn btn-success badge rounded-pill">Update</a>
+                <a href="/updateContact/<%= contact.npm %> " class="btn btn-success badge rounded-pill">Update</a>
                 <br>
-                <a href="" class="btn btn-danger badge rounded-pill">Delete</a>
+                <a href="/deleteContact/<%= contact.npm %> " class="btn btn-danger badge rounded-pill" onclick="return confirm('Apakah ingin menghapus contact?')">Delete</a>
             </td>
           </tr>
         <% }) %>  
