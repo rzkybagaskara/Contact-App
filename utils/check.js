@@ -1,8 +1,18 @@
 const connection = require('../model/connectDB');
 
 // check duplicate
-const checkDuplicate = () => {
-  connection.query('SELECT npm, COUNT(npm) FROM table_kontak GROUP BY npm HAVING COUNT(npm) > 1');
+const checkDuplicate = (npm) => {
+  let bool = true;
+  connection.query(`SELECT npm FROM table_kontak WHERE npm = ${npm}`, (err, result) => {
+    const resultCheck = result || [];
+    console.log(resultCheck);
+    if (resultCheck.length !== 0) {
+      bool = true;
+    } else {
+      bool = false;
+    }
+  });
+  return bool;
 };
 
-module.exports = { checkDuplicate };
+module.exports = checkDuplicate;

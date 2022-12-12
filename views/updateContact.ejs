@@ -6,14 +6,6 @@
         <div class="col-xs-6">
             <h2>Update Data Contact</h2>
 
-            <!-- kalau npm nya sama dengan npm yg ada di daftar kontak, maka tampilkan error -->
-            <!-- need to fix this -->
-            <% if(contact.npm === contact.oldNPM){ %> 
-                <div class="alert alert-danger" role="alert">
-                    <% msg %> 
-                </div>
-            <% } %> 
-
             <form action = "/updateContact/" method="post">
                 <input type="hidden" name="oldNPM" value="<%= contact.npm %>">
                 <div class="mb-3">
