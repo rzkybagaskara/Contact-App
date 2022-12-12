@@ -6,28 +6,23 @@
         <div class="col-xs-6">
             <h2>Update Data Contact</h2>
 
-                   <!-- menampilkan error -->
-                   <% if (typeof errors !== 'undefined') { %>
-                    <div class="alert alert-danger" role="alert">
-                        <ul>
-                            <% errors.forEach(error => { %>
-                                <li><%= error.msg %> </li>
-                            <% }) %>
-                        </ul>
-                      </div>
-                <% } %>
+            <!-- kalau npm nya sama dengan npm yg ada di daftar kontak, maka tampilkan error -->
+            <!-- need to fix this -->
+            <% if(contact.npm === contact.oldNPM){ %> 
+                <div class="alert alert-danger" role="alert">
+                    <% msg %> 
+                </div>
+            <% } %> 
 
             <form action = "/updateContact/" method="post">
                 <input type="hidden" name="oldNPM" value="<%= contact.npm %>">
                 <div class="mb-3">
                   <label class="form-label">NPM</label>
                   <input type="text" class="form-control" id="inputNPM" name="npm" required value="<%= contact.npm%> " >
-                  <%= console.log(contact.npm) %> 
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Nama Lengkap</label>
                   <input type="text" class="form-control" id="inputNama" name="nama_lengkap" value="<%= contact.nama_lengkap%> ">
-                  
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Kelas</label>
