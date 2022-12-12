@@ -8,17 +8,10 @@
     <a href="/addContact" class="btn btn-primary mb-2">Tambah Data Kontak</a>
 
     <!-- flash message ketika berhasil -->
-    <% if (msg.length !== 0 && !duplicate) { %>
+    <% if (msg.length !== 0) { %>
       <div class="alert alert-success" role="alert">
         <%= msg %> 
       </div>
-    <% } %>
-
-    <!-- flash message ketika gagal -->
-    <% if (msg.length !== 0 && duplicate) { %>
-        <div class="alert alert-danger" role="alert">
-          <%= msg %> 
-        </div>
     <% } %>
 
   <table class="table table-bordered">

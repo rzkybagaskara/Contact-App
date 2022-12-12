@@ -4,8 +4,6 @@ const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const connection = require('./model/connectDB');
 const bodyParser = require('body-parser');
-const checkDuplicate = require('./utils/check');
-// const checkDuplicate = require('./utils/check');
 const app = express();
 const port = 8000;
 
@@ -36,7 +34,6 @@ app.use((req, res, next) => {
 
 // root page
 app.get('/', (req, res) => {
-  const duplicate = checkDuplicate(req.body.npm);
   const sqlShow = 'SELECT * FROM table_kontak ORDER BY nama_lengkap ASC';
   connection.query(sqlShow, (err, result) => {
     const contacts = JSON.parse(JSON.stringify(result)); //parsing data
@@ -45,7 +42,6 @@ app.get('/', (req, res) => {
       layout: 'views/contact',
       contacts,
       msg: req.flash('msg'),
-      duplicate,
     });
   });
 });
@@ -59,19 +55,38 @@ app.get('/addContact', (req, res) => {
 });
 
 // proses insert contact
+// app.post('/addContact', (req, res) => {
+//   const duplicate = checkDuplicate(req.body.npm);
+//   console.log(duplicate);
+//   if (duplicate) {
+//     req.flash('msg', 'Terdapat NPM yang sama di dalam database!');
+//     res.redirect('/');
+//   } else {
+//     const sqlAdd = `INSERT INTO table_kontak (npm, nama_lengkap, kelas, email) VALUES ( '${req.body.npm}', '${req.body.nama_lengkap}', '${req.body.kelas}', '${req.body.email}')`;
+//     connection.query(sqlAdd, (err, result) => {
+//       if (err) throw err;
+//       res.redirect('/');
+//     });
+//   }
+// });
+
+// insert contact
 app.post('/addContact', (req, res) => {
-  const duplicate = checkDuplicate(req.body.npm);
-  console.log(duplicate);
-  if (duplicate) {
-    req.flash('msg', 'Terdapat NPM yang sama di dalam database!');
-    res.redirect('/');
-  } else {
-    const sqlAdd = `INSERT INTO table_kontak (npm, nama_lengkap, kelas, email) VALUES ( '${req.body.npm}', '${req.body.nama_lengkap}', '${req.body.kelas}', '${req.body.email}')`;
-    connection.query(sqlAdd, (err, result) => {
-      if (err) throw err;
+  const sqlCheck = `SELECT npm FROM table_kontak WHERE npm = ${req.body.npm}`;
+  connection.query(sqlCheck, (err, result) => {
+    // cek npm kalau ada yang sama maka tampilkan pesan flash error
+    if (result.length !== 0) {
+      req.flash('msg', 'NPM sudah ada di dalam database!');
       res.redirect('/');
-    });
-  }
+    } else {
+      const sqlAdd = `INSERT INTO table_kontak (npm, nama_lengkap, kelas, email) VALUES ( '${req.body.npm}', '${req.body.nama_lengkap}', '${req.body.kelas}', '${req.body.email}')`;
+      connection.query(sqlAdd, (err, result) => {
+        if (err) throw err;
+        req.flash('msg', 'Data berhasil ditambahkan');
+        res.redirect('/');
+      });
+    }
+  });
 });
 
 // halaman update contact
@@ -92,19 +107,12 @@ app.get('/updateContact/:npm', (req, res) => {
 
 // proses update contact
 app.post('/updateContact', (req, res) => {
-  const duplicate = checkDuplicate(req.body.npm);
-  console.log(duplicate);
-  if (duplicate) {
-    req.flash('msg', 'Terdapat NPM yang sama di dalam database!');
+  const sqlUpdate = `UPDATE table_kontak SET npm = '${req.body.npm}', nama_lengkap = '${req.body.nama_lengkap}', kelas = '${req.body.kelas}', email = '${req.body.email}' WHERE npm = '${req.body.oldNPM}'`;
+  connection.query(sqlUpdate, (err, result) => {
+    if (err) throw err;
+    req.flash('msg', 'Data telah berhasil di-update');
     res.redirect('/');
-  } else {
-    const sqlUpdate = `UPDATE table_kontak SET npm = '${req.body.npm}', nama_lengkap = '${req.body.nama_lengkap}', kelas = '${req.body.kelas}', email = '${req.body.email}' WHERE npm = '${req.body.oldNPM}'`;
-    connection.query(sqlUpdate, (err, result) => {
-      if (err) throw err;
-      req.flash('msg', 'Data telah berhasil di-update');
-      res.redirect('/');
-    });
-  }
+  });
 });
 
 // delete contact
