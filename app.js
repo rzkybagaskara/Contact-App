@@ -4,7 +4,6 @@ const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const connection = require('./model/connectDB');
 const bodyParser = require('body-parser');
-const checkDuplicate = require('./utils/check');
 const app = express();
 const port = 8000;
 
@@ -56,21 +55,21 @@ app.get('/addContact', (req, res) => {
 });
 
 // proses insert contact
-// gimana caranya biar si parser ke defined buat error
 app.post('/addContact', (req, res) => {
-  const sqlAdd = `INSERT INTO table_kontak (npm, nama_lengkap, kelas, email) VALUES ( '${req.body.npm}', '${req.body.nama_lengkap}', '${req.body.kelas}', '${req.body.email}')`;
-  connection.query(sqlAdd, (err, result) => {
-    if (err) throw err;
-    // if (err) {
-    //   req.flash('msg', 'NPM sudah ada di dalam database!');
-    // }
-    // // cek duplikat
-    // const duplicate = checkDuplicate(req.body.npm);
-    // if (duplicate) {
-    //   throw new Error('NPM sudah ada di dalam daftar contact!');
-    // }
-    req.flash('msg', 'Data telah berhasil ditambahkan');
-    res.redirect('/');
+  const sqlCheck = `SELECT npm FROM table_kontak WHERE npm = ${req.body.npm}`;
+  connection.query(sqlCheck, (err, result) => {
+    // cek npm kalau ada yang sama maka tampilkan pesan flash error
+    if (result.length !== 0) {
+      req.flash('msg', 'NPM sudah ada di dalam database!');
+      res.redirect('/');
+    } else {
+      const sqlAdd = `INSERT INTO table_kontak (npm, nama_lengkap, kelas, email) VALUES ( '${req.body.npm}', '${req.body.nama_lengkap}', '${req.body.kelas}', '${req.body.email}')`;
+      connection.query(sqlAdd, (err, result) => {
+        if (err) throw err;
+        req.flash('msg', 'Data berhasil ditambahkan');
+        res.redirect('/');
+      });
+    }
   });
 });
 
@@ -85,6 +84,7 @@ app.get('/updateContact/:npm', (req, res) => {
       layout: 'views/updateContact',
       title: 'Update Data Contact',
       contact,
+      msg: req.flash('msg'),
     });
   });
 });
@@ -94,9 +94,6 @@ app.post('/updateContact', (req, res) => {
   const sqlUpdate = `UPDATE table_kontak SET npm = '${req.body.npm}', nama_lengkap = '${req.body.nama_lengkap}', kelas = '${req.body.kelas}', email = '${req.body.email}' WHERE npm = '${req.body.oldNPM}'`;
   connection.query(sqlUpdate, (err, result) => {
     if (err) throw err;
-    // if (err) {
-    //   req.flash('msg', 'NPM sudah ada di dalam database!');
-    // }
     req.flash('msg', 'Data telah berhasil di-update');
     res.redirect('/');
   });

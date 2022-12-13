@@ -5,15 +5,7 @@
     <div class="row">
         <div class="col-xs-6">
             <h2>Form Tambah Data Contact</h2>
-            
-            <!-- kalau npm nya sama dengan npm yg ada di daftar kontak, maka tampilkan error -->
-            <!-- need to fix this -->
-            <% if(contacts.npm === contacts.npm){ %> 
-                <div class="alert alert-danger" role="alert">
-                    <% msg %> 
-                </div>
-            <% } %> 
-            
+
             <form action= "/addContact" method="post">
                 <div class="mb-3">
                   <label class="form-label">NPM</label>

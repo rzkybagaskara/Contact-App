@@ -1,7 +1,11 @@
 #rar
 *.rar
 
+<<<<<<< HEAD
 #utils
+=======
+#folder utils
+>>>>>>> flash-message
 /utils
 
 # Logs
