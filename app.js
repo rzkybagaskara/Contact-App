@@ -55,22 +55,6 @@ app.get('/addContact', (req, res) => {
 });
 
 // proses insert contact
-// app.post('/addContact', (req, res) => {
-//   const duplicate = checkDuplicate(req.body.npm);
-//   console.log(duplicate);
-//   if (duplicate) {
-//     req.flash('msg', 'Terdapat NPM yang sama di dalam database!');
-//     res.redirect('/');
-//   } else {
-//     const sqlAdd = `INSERT INTO table_kontak (npm, nama_lengkap, kelas, email) VALUES ( '${req.body.npm}', '${req.body.nama_lengkap}', '${req.body.kelas}', '${req.body.email}')`;
-//     connection.query(sqlAdd, (err, result) => {
-//       if (err) throw err;
-//       res.redirect('/');
-//     });
-//   }
-// });
-
-// insert contact
 app.post('/addContact', (req, res) => {
   const sqlCheck = `SELECT npm FROM table_kontak WHERE npm = ${req.body.npm}`;
   connection.query(sqlCheck, (err, result) => {
