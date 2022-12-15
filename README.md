@@ -13,7 +13,7 @@ yang terdiri atas NPM, Nama Lengkap, Kelas, dan Email.
 
 3. Kemudian, buat sebuah tabel dalam database tersebut dengan nama tabel_kontak dengan field berikut:
 
-  `CREATE TABLE tabel_kontak VALUES (npm int(8) PRIMARY KEY NOT NULL, nama_lengkap text NOT NULL, kelas varchar(5) NOT NULL, email varchar(50) NOT NULL);`
+  `CREATE TABLE tabel_kontak VALUES (npm int(8) PRIMARY KEY NOT NULL, nama_lengkap text NOT NULL, kelas varchar(5) NOT NULL, email varchar(50) NOT NULL));`
 
 4. Setelah itu, clone repository ini menggunakan git bash dengan cara:
 
