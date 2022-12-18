@@ -1,6 +1,9 @@
 #rar
 *.rar
 
+#folder utils
+/utils
+
 # Logs
 logs
 *.log
