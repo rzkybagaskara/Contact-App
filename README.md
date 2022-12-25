@@ -19,7 +19,7 @@ yang terdiri atas NPM, Nama Lengkap, Kelas, dan Email.
 
   `git clone https://github.com/rzkybagaskara/Contact-App.git`
 
-5. Import depedencies pada node_module dengan mengetikkan command berikut pada git bash:
+5. Install depedencies yang diperlukan pada node_module:
 
   `npm install package.json`
 
@@ -29,4 +29,4 @@ yang terdiri atas NPM, Nama Lengkap, Kelas, dan Email.
 
 7. Terakhir, jalankan pada git bash command berikut untuk menjalankan web app:
 
-  `node app`
+  `nodemon app`
